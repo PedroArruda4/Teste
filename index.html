@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h1>Catalago de Musicas Soul</h1>
+    <p id="lista"> </p>
+    <script>
+        
+        var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200)
+                {
+                    var disco = JSON.parse(this.responseText);
+					
+					var string = ''
+					for (let i = 0; i < disco['id'].length; i++){
+						string += `
+						<div id="center-page">
+    						<h3><i class="fas fa-compact-disc"></i> Dados do Disco <i class="fas fa-compact-disc"></i></h3>
+    						<p></i> ID do disco: ${disco.id[i]}</p>
+    						<p></i> Título: ${disco.titulo[i]}</p>
+    						<p></i> Artista: ${disco.artista[i]}</p>
+    					</div>
+    					<h4 id="ficha">Ficha <i class="fas fa-clipboard"></i></h4>
+					  
+						<div id="resp">
+						<table>
+							<tr>
+								<th>Ano</th>
+								<th>País</th>
+								<th>Gravadora</th>
+								<th>Preço</th>
+							</tr>
+							<tr>
+								<td >${disco.ficha[i]['ano']}</td>
+								<td >${disco.ficha[i]['pais']}</td>
+								<td >${disco.ficha[i]['gravadora']}</td>
+								<td >${disco.ficha[i]['preco']}</td>
+							</tr>
+						</table>
+						</div>
+						<hr>
+						`
+					}
+                    document.getElementById("lista").innerHTML= string
+                }
+            };
+
+                xmlhttp.open("POST", "catalogo.json", true);
+
+                xmlhttp.send();
+            
+                </script>
+            </tr>
+         </table>
+    <br>
+    <p>Teste</p>
+    <p>Acesso ao arquivo Json <a href="catalago.json" target="_blank"></a> catalago.json</p>
+</body>
+</html>
